@@ -16,3 +16,11 @@ The repository is organized into folders, each corresponding to a different visu
 - **Parallel Coordinates Plot**: A method for plotting multivariate data.
 - **Quiver Plots**: Visualizations using arrows to show vector fields, often used for wind or flow direction data.
 - **Tree Maps**: Hierarchical visualizations to represent data with nested rectangles.
+
+## Install all requirements
+
+1. Navigate to the project directory.
+2. Run the following command to create a virtual environment:
+
+for Windows Powershell:
+   1) pip install -r requirements.txt

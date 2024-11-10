@@ -5,6 +5,7 @@ import os
 import matplotlib.colors as mcolors
 import imageio
 from pathlib import Path
+import numpy as np
 
 file_path = 'bi_2015.nc'
 ds = xr.open_dataset(file_path)
@@ -157,7 +158,7 @@ global_composite_min, global_composite_max = composite_index.min().values, compo
 log_norm_composite = mcolors.LogNorm(vmin=global_composite_min + 1e-6, vmax=global_composite_max)
 
 # Define a function to plot and save each variable with global and local scaling
-def plot_variable(data, var_name, title, global_min=None, global_max=None, local_scale=False, cmap="YlOrRd", norm=None, save_path=None):
+def plot_variable2(data, var_name, title, global_min=None, global_max=None, local_scale=False, cmap="YlOrRd", norm=None, save_path=None):
     days = data.day.values[::10]  # Plot every 10th day for clarity
 
     # Create directory if save_path is provided
@@ -197,10 +198,10 @@ output_dir = "Map_Outputs"
 # Plot and save the Composite Index with both global and local scaling using Logarithmic Scaling
 
 print("Composite Index - Global Scaling with Logarithmic Scaling")
-plot_variable(composite_index, 'composite_index', 'Composite Fire Risk Index', cmap="viridis", norm=log_norm_composite, save_path=output_dir)
+plot_variable2(composite_index, 'composite_index', 'Composite Fire Risk Index', cmap="viridis", norm=log_norm_composite, save_path=output_dir)
 
 print("Composite Index - Local Scaling with Logarithmic Scaling")
-plot_variable(composite_index, 'composite_index', 'Composite Fire Risk Index', cmap="viridis", local_scale=True, save_path=output_dir)
+plot_variable2(composite_index, 'composite_index', 'Composite Fire Risk Index', cmap="viridis", local_scale=True, save_path=output_dir)
 
 
 
@@ -221,11 +222,7 @@ global_sph_min, global_sph_max = sph_data['specific_humidity'].min().values, sph
 global_fm100_min, global_fm100_max = fm100_data['dead_fuel_moisture_100hr'].min().values, fm100_data['dead_fuel_moisture_100hr'].max().values
 global_fm1000_min, global_fm1000_max = fm1000_data['dead_fuel_moisture_1000hr'].min().values, fm1000_data['dead_fuel_moisture_1000hr'].max().values
 
-# Define thresholds, adjusting to stay within valid ranges
-def validate_threshold(threshold, vmin, vmax):
-    if threshold <= vmin or threshold >= vmax:
-        return (vmin + vmax) / 2  # Use midpoint if out of range
-    return threshold
+
 
 threshold_bi = validate_threshold(200, global_bi_min, global_bi_max)
 threshold_fm100 = validate_threshold(10, global_fm100_min, global_fm100_max)
