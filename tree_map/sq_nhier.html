@@ -1,0 +1,89 @@
+<html>
+<head>
+    <title>Tree Map by Education Level</title>
+    <script type="text/javascript" src="https://cdn.fusioncharts.com/fusioncharts/latest/fusioncharts.js"></script>
+    <script type="text/javascript" src="https://cdn.fusioncharts.com/fusioncharts/latest/themes/fusioncharts.theme.fusion.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.2/papaparse.min.js"></script>
+    <script type="text/javascript">
+        FusionCharts.ready(async function(){
+
+            let chartData = [];
+
+            async function parseCSV() {
+                const response = await fetch('ass1.csv'); // Replace with your file path
+                const csvData = await response.text();
+                return new Promise((resolve) => {
+                    Papa.parse(csvData, {
+                        header: true,
+                        complete: (results) => {
+                            const parsedData = results.data;
+                            const educationCount = {};
+
+                            parsedData.forEach(row => {
+                                const education = row['Education'];
+
+                                if (!educationCount[education]) {
+                                    educationCount[education] = { label: education, value: 1, sValue: 1};
+                                } else {
+                                    educationCount[education].value += 1; // Increment count for each Education level
+                                    educationCount[education].sValue += 1;
+                                }
+                            });
+
+                            const chartData_1 = Object.values(educationCount);
+                            // console.log(chartData_1);
+                            const ChartData = [{label:"Education", data:chartData_1}];
+                            console.log(ChartData);
+                            chartData = Object.values(ChartData);
+                            resolve(chartData);
+                        }
+                    });
+                });
+            }
+
+            chartData = await parseCSV();
+
+            console.log(chartData);
+            
+            var chartObj = new FusionCharts({
+                type: 'treemap',
+                renderAt: 'chart-container',
+                width: '1200',
+                height: '700',
+                dataFormat: 'json',
+                dataSource: {
+                    "chart": {
+                        "plotfillalpha": "80",
+                        "hideTitle": "1",
+                        "algorithm": "squarified",
+                        "plotToolText": "<div><b>$label</b><br/> <b>Count: </b>$value</div>",
+                        "horizontalPadding": "1",
+                        "verticalPadding": "1",
+                        "plotborderthickness": "0.5",
+                        "plotbordercolor": "666666",
+                        "theme": "fusion"
+                    },
+                    "data": chartData,
+                    "colorrange": {
+                        "gradient": "1",
+                        "minvalue": "0",
+                        "code": "d4e8ff", // Light blue at the lower end of the scale
+                        "color": [
+                            { "code": "b0d4f1", "maxvalue": "75" },
+                            { "code": "8bbce2", "maxvalue": "150" },
+                            { "code": "679fd3", "maxvalue": "225" },
+                            { "code": "4a82c2", "maxvalue": "400" },
+                            { "code": "3065a1", "maxvalue": "600" },
+                            { "code": "14477f", "maxvalue": "1130" } // Dark blue at the upper end of the scale
+                        ]
+                    }
+                }
+            });
+            chartObj.render();
+        });
+    </script>
+</head>
+<body>
+    <div id="chart-container">FusionCharts XT will load here!</div>
+</body>
+</html>
