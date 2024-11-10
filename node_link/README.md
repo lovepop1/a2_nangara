@@ -6,8 +6,6 @@ This project visualizes a citation network using node-link diagrams. The dataset
 - [Overview](#overview)
 - [Getting Started](#getting-started)
   - [Dataset Download](#dataset-download)
-  - [Google Drive Setup](#google-drive-setup)
-  - [Colab Notebook](#colab-notebook)
 - [Visualization in Gephi](#visualization-in-gephi)
 
 ## Overview
@@ -25,21 +23,6 @@ The dataset can be downloaded from the following link:
 
 Download the `cit-HepTh.txt.gz` file, which contains the source and target node information for citations.
 Download the `cit-HepTh-abstracts.tar.gz` file, which contains the paper information for a given id.
-
-### Google Drive Setup
-
-1. **Upload Data to Google Drive**: Place the downloaded file (`cit-HepTh.txt.gz`) in a folder in your Google Drive for easy access from Colab.
-2. **Mount Google Drive in Colab**: The Colab notebook will mount your Google Drive, allowing access to the dataset.
-3. **Update File Path**: After mounting, adjust the file path in the notebook to point to the dataset location in your Google Drive.
-
-### Colab Notebook
-
-The main notebook for preprocessing the data is:
-- `node_link_preprocessing.ipynb`
-
-This notebook:
-- Loads and preprocesses the citation data.
-- Formats the data for use in Gephi, outputting a file compatible with Gephi's requirements.
 
 ## Visualization in Gephi
 

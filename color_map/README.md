@@ -6,8 +6,7 @@ This folder contains resources for creating color map visualizations, including 
 - [Overview](#overview)
 - [Getting Started](#getting-started)
   - [Dataset Download](#dataset-download)
-  - [Google Drive Setup](#google-drive-setup)
-  - [Colab Notebook](#colab-notebook)
+
 
 ## Overview
 
@@ -28,20 +27,8 @@ The required files for this visualization are:
 - `fm100_2015.nc`
 - `fm1000_2015.nc`
 
-Download these files and upload them to your Google Drive for easy access in the Colab notebook.
 
-### Google Drive Setup
-
-1. **Upload Data Files to Google Drive**: Place the downloaded files (`bi_2015.nc`, `sph_2015.nc`, `fm100_2015.nc`, `fm1000_2015.nc`) in a folder within your Google Drive.
-2. **Mount Google Drive in Colab**: The Colab notebook will mount your Google Drive, giving it access to the dataset.
-3. **Update File Paths**: After mounting, adjust the file paths in the notebook to point to the correct location of your data files in Google Drive.
-
-### Colab Notebook
-
-The main notebook for preprocessing, plotting, and generating GIFs is available at:
-- `colab_notebooks/color_map.ipynb`
-
-In this notebook, you will:
+In this you will:
 - Load and preprocess the data.
 - Plot color maps of the chosen variables.
 - Create GIF animations to illustrate changes over time.
